@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapala UIN Palopo | Salam Lestari</title>
+    <style>
+        /* Pengaturan Dasar & Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f6;
+        }
+
+        /* Navigasi (Header) */
+        header {
+            background-color: #1b5e20;
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #a5d6a7;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(27, 94, 32, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 0;
+        }
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn:hover {
+            background-color: #388e3c;
+            transform: scale(1.05);
+        }
+
+        /* General Section Layout */
+        section {
+            padding: 80px 5%;
+            text-align: center;
+        }
+        section h3 {
+            font-size: 2.2rem;
+            color: #1b5e20;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        section h3::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: #4caf50;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Divisi / Kegiatan Cards */
+        .kegiatan-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            width: 320px;
+            text-align: left;
+            border-bottom: 5px solid #1b5e20;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Galeri Grid */
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .galeri-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .galeri-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block;
+        }
+        .galeri-item:hover img {
+            transform: scale(1.1);
+        }
+        .galeri-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(27, 94, 32, 0.8);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        .galeri-item:hover .galeri-caption {
+            transform: translateY(0);
+        }
+
+        /* Formulir Pendaftaran / Kontak */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        button[type="submit"] {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsif untuk Layar Kecil */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background-color: #1b5e20;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <header>
+        <h1>Mapala UIN Palopo</h1>
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        <nav>
+            <ul id="nav-list">
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#kegiatan">Divisi</a></li>
+                <li><a href="#galeri">Galeri</a></li>
+                <li><a href="#pendaftaran">Pendaftaran</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero">
+        <h2>Salam Lestari!</h2>
+        <p>Wadah bagi mahasiswa Universitas Islam Negeri Palopo untuk melatih mental, menjaga kelestarian bumi, dan mengabdi untuk masyarakat luas.</p>
+        <a href="#pendaftaran" class="btn">Gabung Menjadi Anggota</a>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section id="tentang">
+        <h3>Tentang Organisasi</h3>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">Mapala UIN Palopo adalah Unit Kegiatan Mahasiswa (UKM) yang berfokus pada kegiatan alam bebas, pelestarian lingkungan hidup, serta kemanusiaan. Kami mendidik anggota agar tangguh secara fisik dan mental, serta kritis terhadap isu-isu agraria dan lingkungan yang ada di sekitar kita.</p>
+    </section>
+
+    <!-- Divisi / Kegiatan -->
+    <section id="kegiatan" style="background-color: #e8f5e9;">
+        <h3>Divisi Operasional</h3>
+        <div class="kegiatan-container">
+            <div class="card">
+                <h4>Gunung Hutan</h4>
+                <p>Mempelajari ilmu navigasi darat, manajemen perjalanan, dan survival. Ekspedisi rutin ke berbagai puncak pegunungan di Sulawesi dan sekitarnya.</p>
+            </div>
+            <div class="card">
+                <h4>Panjat Tebing (Rock Climbing)</h4>
+                <p>Penguasaan teknik pemanjatan artifisial dan tebing alam. Mempelajari sistem pengamanan dan peralatan standar operasional pemanjatan.</p>
+            </div>
+            <div class="card">
+                <h4>Lingkungan Hidup</h4>
+                <p>Aksi nyata kampanye ekologi, konservasi flora dan fauna, hingga advokasi kebijakan terkait tata ruang dan kelestarian alam hidup.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Dokumentasi -->
+    <section id="galeri">
+        <h3>Galeri Ekspedisi</h3>
+        <div class="galeri-grid">
+            <div class="galeri-item">
+                <!-- URL Gambar menggunakan placeholder tema alam -->
+                <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Rock Climbing">
+                <div class="galeri-caption">Latihan Panjat Tebing di Toraja Utara</div>
+            </div>
+            <div class="galeri-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Mountaineering">
+                <div class="galeri-caption">Pendidikan Dasar Gunung Hutan</div>
+            </div>
+            <div class="galeri-item">
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Lingkungan Hidup">
+                <div class="galeri-caption">Aksi Tanam Pohon Bersama Warga</div>
+            </div>
+            <div class="galeri-item">
+                <img src="https://images.unsplash.com/photo-1504280390226-0a256a2bb3ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Camping">
+                <div class="galeri-caption">Malam Keakraban Anggota Mapala</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulir Pendaftaran / Kontak -->
+    <section id="pendaftaran" style="background-color: #e8f5e9;">
+        <h3>Tertarik Bergabung?</h3>
+        <p style="margin-bottom: 30px;">Isi formulir di bawah ini untuk mendapatkan informasi mengenai Pendidikan Dasar (Diksar) selanjutnya.</p>
+        
+        <div class="form-container">
+            <!-- PENTING: Ganti email di bagian action dengan email asli Anda -->
+            <form action="https://formsubmit.co/email_anda@gmail.com" method="POST">
+                
+                <!-- Konfigurasi FormSubmit agar terlihat profesional -->
+                <input type="hidden" name="_subject" value="Pendaftaran Baru Anggota Mapala!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap / Panggilan:</label>
+                    <input type="text" id="nama" name="Nama" placeholder="Contoh: Arul" required>
+                </div>
+                <div class="form-group">
+                    <label for="jurusan">Fakultas & Jurusan:</label>
+                    <input type="text" id="jurusan" name="Jurusan" placeholder="Contoh: Fakultas Syariah - Ilmu Hukum" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">Nomor WhatsApp:</label>
+                    <input type="tel" id="whatsapp" name="WhatsApp" placeholder="08xxxxxxxxxx" required>
+                </div>
+                <div class="form-group">
+                    <label for="alasan">Kenapa ingin masuk Mapala?</label>
+                    <textarea id="alasan" name="Alasan" rows="4" placeholder="Tuliskan alasan singkat Anda..." required></textarea>
+                </div>
+                <button type="submit" class="btn">Kirim Formulir Pendaftaran</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Sekretariat:</strong> Kampus UIN Palopo, Sulawesi Selatan</p>
+        <p>Instagram: @mpa-uin-palopo | Email: mapala@uinpalopo.ac.id</p>
+        <br>
+        <p>&copy; 2026 Mapala UIN Palopo. Lestari Alamku, Lestari Bumiku.</p>
+    </footer>
+
+    <!-- JavaScript untuk Interaktivitas Navigasi Mobile -->
+    <script>
+        // Mengatur Menu Hamburger untuk tampilan HP
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Menutup menu saat salah satu link diklik (di mode HP)
+        const navLinks = document.querySelectorAll('#nav-list a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navList.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
